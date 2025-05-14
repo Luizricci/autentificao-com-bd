@@ -2,9 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import { useState} from 'react';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-export default function login() {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -17,6 +18,12 @@ export default function login() {
         email,
         senha: password,
       });
+      const { token } = response.data;
+      if (!token) {
+        throw new Error('Token não encontrado na resposta');
+      }
+
+      await AsyncStorage.setItem('token', token);
 
       console.log('Login bem-sucedido:', response.data);
       setError(null); 

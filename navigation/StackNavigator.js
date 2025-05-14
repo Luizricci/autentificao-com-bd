@@ -10,7 +10,6 @@ export default function StackNavigator() {
         <Stack.Navigator >
             <Stack.Screen name="Login" component={login} />
             <Stack.Screen name="Home" component={home} />
-            {/* Adicione mais telas aqui */}
         </Stack.Navigator>
     );
 }
